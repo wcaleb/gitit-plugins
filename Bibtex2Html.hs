@@ -9,6 +9,7 @@ import System.Process (readProcessWithExitCode)
 import System.Exit (ExitCode(ExitSuccess))
 import Control.Monad.Trans (liftIO)
 import Text.HTML.TagSoup
+import Data.Text
 
 plugin :: Plugin
 plugin = mkPageTransformM transformBlock
