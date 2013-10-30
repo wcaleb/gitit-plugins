@@ -20,6 +20,7 @@ transformBlock (CodeBlock (_, classes, namevals) contents) | "bib" `elem` classe
    (ec, _out, err) <- readProcessWithExitCode "bibtex2html" ["-q", "-dl", "-nodoc"] contents
    if ec == ExitSuccess
       then return $ Header 1 [Strong [RawInline "html" (getCitation _out)]]
+      -- if bibtex2html returns an error, the original Pandoc codeblock will be returned
       else return $ CodeBlock ([], ["bib"], []) contents
 transformBlock x = return x
 
