@@ -18,7 +18,7 @@ transformBlock :: Block -> PluginM Block
 transformBlock (CodeBlock (_, classes, namevals) contents) | "bib" `elem` classes = liftIO $ do
    (ec, _out, err) <- readProcessWithExitCode "bibtex2html" ["-q", "-dl", "-nodoc"] contents
    if ec == ExitSuccess
-      then return $ Header 1 ("", [""], [("","")]) [Strong [RawInline "html" (getCitation _out)]]
+      then return $ Header 1 ("", [""], [("","")]) [Strong [RawInline (Format "html") (getCitation _out)]]
       -- if bibtex2html returns an error, the original Pandoc codeblock will be returned
       else return $ CodeBlock ([], ["bib"], []) contents
 transformBlock x = return x
